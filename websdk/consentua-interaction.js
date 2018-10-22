@@ -84,7 +84,13 @@ var ConsentuaController = function () {
             $(document).trigger('consentua-ready');
 
         // and NATIVE
-        var event = new Event('consentua-ready');
+        //Check if Event is function, else use deprecated for IE
+        if(typeof(Event) === 'function') {
+            var event = new Event('consentua-ready');
+        }else{
+            var event = document.createEvent('Event');
+            event.initEvent('consentua-ready', true, true);
+        }
         document.body.dispatchEvent(event);
     }
 
